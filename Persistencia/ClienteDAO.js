@@ -60,13 +60,30 @@ export default class ClienteDAO {
         }
         let sql="";
         if (isNaN(termoDePesquisa)){
-            sql = `SELECT * FROM cliente WHERE nome LIKE '%$%'`;  
+            sql = `SELECT * FROM cliente WHERE nome LIKE '%?%'`;  
         }
         else{
             sql=`SELECT * FROM cliente WHERE codigo = ?`;
         }
 
         const conexao = await conectar(); 
-        const [registros] = await conexao.execute(sql, [termoDePesquisa]);
+        const [registros] = await conexao.execute(sql,[termoDePesquisa]);
+
+        let listaClientes = [];
+        for (const registro of registros){
+            const cliente = new Cliente(
+                registro.codigo,
+                registro.cpf,
+                registro.nome,
+                registro.endereco,
+                registro.bairro,
+                registro.cidade,
+                registro.estado,
+                registro.telefone,
+                registro.email
+            );
+            listaClientes.push(cliente);
+        }
+        return listaClientes;
     }
 }

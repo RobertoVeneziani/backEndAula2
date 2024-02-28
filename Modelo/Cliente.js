@@ -1,3 +1,5 @@
+import ClienteDAO from "../Persistencia/ClienteDAO.js";
+
 export default class Cliente {
   #codigo;
   #cpf;
@@ -92,11 +94,23 @@ export default class Cliente {
         this.#email = novoEmail;
     }
 
-    gravar(){}
+    async gravar(){
+        const dao = new ClienteDAO();
+        await dao.gravar(this);
+    }
 
-    atualizar(){}
+    async atualizar(){
+        const dao = new ClienteDAO();
+        await dao.atualizar(this);
+    }
 
-    excluir(){}
+    excluir(){
+        const dao = new ClienteDAO();
+        dao.excluir(this);
+    }
 
-    consultar(ternoDePesquisa){}
+    async consultar(ternoDePesquisa){
+        const dao = new ClienteDAO();
+        return await dao.consultar(termoDePesquisa);
+    }
 }
