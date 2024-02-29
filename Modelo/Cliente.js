@@ -11,7 +11,7 @@ export default class Cliente {
   #telefone;
   #email;
 
-  constructor(codigo = 0, cpf="", nome="", endereco="", bairro="", cidade="", estado="", telefone="", email=""){
+  constructor(codigo=0, cpf="", nome="", endereco="", bairro="", cidade="", estado="", telefone="", email=""){
     this.#codigo = codigo;
     this.cpf = cpf;
     this.nome = nome;
@@ -112,5 +112,25 @@ export default class Cliente {
     async consultar(ternoDePesquisa){
         const dao = new ClienteDAO();
         return await dao.consultar(termoDePesquisa);
+    }
+
+    toString(){
+        return `Cliente código: ${this.#codigo} - nome: ${this.#nome}`;
+    }
+
+    toJSON(){
+        return{
+            "codigo": this.#codigo,
+            "cpf": this.#cpf,
+            "nome": this.#nome,
+            "endereco": this.#endereco,        
+            "bairro": this.#bairro,
+            "cidade": this.#cidade,
+            "estado": this.#estado,
+            "telefone": this.#telefone, 
+            "email": this.#email
+
+
+        }
     }
 }
