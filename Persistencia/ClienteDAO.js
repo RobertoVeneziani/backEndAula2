@@ -26,7 +26,7 @@ export default class ClienteDAO {
     async atualizar(cliente) {
         if  (cliente instanceof Cliente) {
             const conexao = await conectar();
-            const sql = `UPDATE cliente SET cpf = ?, nome = ? endereco = ?, bairro = ?, cidade = ?,   estado = ? tefefone = ? email = ?, WHERE codigo = ?`;
+            const sql = `UPDATE cliente SET cpf = ?, nome = ? endereco = ?, bairro = ?, cidade = ?,   estado = ? tefefone = ? email = ?, WHERE id= ?`;
             const parametros = [
                 cliente.cpf,
                 cliente.nome,
@@ -46,7 +46,7 @@ export default class ClienteDAO {
     async excluir(cliente){
         if (cliente instanceof Cliente){
             const conexao = await conectar();   
-            const sql = "DELETE FROM cliente, WHERE codigo=?";
+            const sql = "DELETE FROM cliente, WHERE id = ?";
             const parametros = [
                 cliente.codigo
             ]
@@ -63,7 +63,7 @@ export default class ClienteDAO {
             sql = `SELECT * FROM cliente WHERE nome LIKE '%?%'`;  
         }
         else{
-            sql=`SELECT * FROM cliente WHERE codigo = ?`;
+            sql=`SELECT * FROM cliente WHERE id = ?`;
         }
 
         const conexao = await conectar(); 
@@ -72,7 +72,7 @@ export default class ClienteDAO {
         let listaClientes = [];
         for (const registro of registros){
             const cliente = new Cliente(
-                registro.codigo,
+                registro.id,
                 registro.cpf,
                 registro.nome,
                 registro.endereco,

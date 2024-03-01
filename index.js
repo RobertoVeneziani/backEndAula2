@@ -12,3 +12,15 @@ cliente.gravar().then(() =>{
     console.log(erro.message);  
 });
 
+cliente.atualizar().then(() =>{
+    console.log("Dados do cliente atualizados com sucesso!");
+}).catch((erro) =>{
+    console.log(erro);
+});
+
+cliente.excluir().then(()=> {
+    console.log("O cliente foi excluído com sucesso!")
+})
+.catch((erro)=> {
+    console.log(erro);
+});
