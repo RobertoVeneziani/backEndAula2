@@ -24,3 +24,17 @@ cliente.excluir().then(()=> {
 .catch((erro)=> {
     console.log(erro);
 });
+
+const clienteQQ = new Cliente();
+
+
+clienteQQ.consultar("Moraes").then((listaClientes) => {
+    console.log("Clientes encontrados:")
+    for (const cliente  of listaClientes){
+        console.log(cliente.toJSON());
+    }
+    listaClientes = lista;
+}).catch((erro) =>{
+    console.log("Não foi possível consultar o cliente", erro);
+});
+

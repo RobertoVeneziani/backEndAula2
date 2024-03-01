@@ -104,9 +104,9 @@ export default class Cliente {
         await dao.atualizar(this);
     }
 
-    excluir(){
+    async excluir(){
         const dao = new ClienteDAO();
-        dao.excluir(this);
+        await dao.excluir(this);
     }
 
     async consultar(ternoDePesquisa){

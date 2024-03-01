@@ -60,7 +60,8 @@ export default class ClienteDAO {
         }
         let sql="";
         if (isNaN(termoDePesquisa)){
-            sql = `SELECT * FROM cliente WHERE nome LIKE '%?%'`;  
+            sql = `SELECT * FROM cliente WHERE nome LIKE ?`; 
+            termoDePesquisa= '%' + termoDePesquisa + '%';            
         }
         else{
             sql=`SELECT * FROM cliente WHERE id = ?`;
