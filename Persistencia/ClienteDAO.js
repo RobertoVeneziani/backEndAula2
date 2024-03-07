@@ -1,5 +1,5 @@
 import conectar from "./Conexao.js";
-import Cliente from "../Modelos/Cliente.js"
+import Cliente from "../Modelo/Cliente.js"
 //DAO - data Access Object
 export default class ClienteDAO {
     async gravar(cliente) {
@@ -26,7 +26,7 @@ export default class ClienteDAO {
     async atualizar(cliente) {
         if  (cliente instanceof Cliente) {
             const conexao = await conectar();
-            const sql = `UPDATE cliente SET cpf = ?, nome = ?, endereco = ?, bairro = ?, cidade = ?,   estado = ?, tefefone = ?, email = ?, WHERE id= ?`;
+            const sql = `UPDATE cliente SET cpf = ?, nome = ?, endereco = ?, bairro = ?, cidade = ?,   estado = ?, telefone = ?, email = ? WHERE id = ?`;
             const parametros = [
                 cliente.cpf,
                 cliente.nome,

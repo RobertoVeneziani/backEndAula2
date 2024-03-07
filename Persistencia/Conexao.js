@@ -3,7 +3,7 @@ import mysql from "mysql2/promise";
 
 
 export default async function conectar () {
-    if (global.pool !== underfined) {
+    if (global.pool !== undefined) {
         return await global.pool.getConnection();
     }
     else{ 
@@ -22,7 +22,7 @@ export default async function conectar () {
             keepAliveInitialDelay: 0,
       });  
       
-      global.pool = poll;
+      global.pool = pool;
       return await pool.getConnection();
     }
 }
