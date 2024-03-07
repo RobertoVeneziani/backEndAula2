@@ -1,11 +1,11 @@
 import Cliente from "./Modelo/Cliente.js";
 
 //
-const cliente = new Cliente(0, "123.456.789-10",
-    "Jorge Alcantara de Moraes", "Rua das Larangeiras, 213",
-    "Vila ocidental", "São Paulo", "SP", "(11)92556-2235",
-    "josealcantara@ig.com.br");
-/*
+const cliente = new Cliente(0, "321.213.222-12",
+    "Maria Filomena", "Rua das Larangeiras, 500",
+    "Vila Iti", "São Paulo", "SP", "(11)92556-2235",
+    "maria@ig.com.br");
+
 cliente.gravar().then(() =>{
     console.log("cliente gravado com sucesso!");
 }).catch((erro) =>{
@@ -24,7 +24,7 @@ cliente.excluir().then(()=> {
 .catch((erro)=> {
     console.log(erro);
 });
-*/
+
 const clienteQQ = new Cliente();
 
 
@@ -37,4 +37,4 @@ clienteQQ.consultar("Moraes").then((listaClientes) => {
 }).catch((erro) =>{
     console.log("Não foi possível consultar o cliente", erro);
 });
-
+*/
