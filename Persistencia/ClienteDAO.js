@@ -46,7 +46,7 @@ export default class ClienteDAO {
     async excluir(cliente){
         if (cliente instanceof Cliente){
             const conexao = await conectar();   
-            const sql = "DELETE FROM cliente, WHERE id = ?";
+            const sql = "DELETE FROM cliente WHERE id = ?";
             const parametros = [
                 cliente.codigo
             ]
