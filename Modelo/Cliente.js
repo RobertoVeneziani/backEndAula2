@@ -109,7 +109,7 @@ export default class Cliente {
         await dao.excluir(this);
     }
 
-    async consultar(ternoDePesquisa){
+    async consultar(termoDePesquisa){
         const dao = new ClienteDAO();
         return await dao.consultar(termoDePesquisa);
     }
