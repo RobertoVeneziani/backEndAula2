@@ -1,17 +1,17 @@
 import Cliente from "./Modelo/Cliente.js";
 
 //
-const cliente = new Cliente(0, "321.213.222-12",
-    "Maria Filomena", "Rua das Larangeiras, 500",
-    "Vila Iti", "São Paulo", "SP", "(11)92556-2235",
-    "maria@ig.com.br");
-
+const cliente = new Cliente(5, "154.222.356-25",
+    "Capital Inicial", "Rua das Larangeiras, 700",
+    "Porto Madero", "São Paulo", "SP", "(11)92556-2235",
+    "ramones@ig.com.br");
+/*
 cliente.gravar().then(() =>{
     console.log("cliente gravado com sucesso!");
 }).catch((erro) =>{
     console.log(erro.message);  
 });
-/*
+
 cliente.atualizar().then(() =>{
     console.log("Dados do cliente atualizados com sucesso!");
 }).catch((erro) =>{
@@ -24,11 +24,12 @@ cliente.excluir().then(()=> {
 .catch((erro)=> {
     console.log(erro);
 });
+*/
 
 const clienteQQ = new Cliente();
 
 
-clienteQQ.consultar("Moraes").then((listaClientes) => {
+clienteQQ.consultar("Maria").then((listaClientes) => {
     console.log("Clientes encontrados:")
     for (const cliente  of listaClientes){
         console.log(cliente.toJSON());
@@ -37,4 +38,4 @@ clienteQQ.consultar("Moraes").then((listaClientes) => {
 }).catch((erro) =>{
     console.log("Não foi possível consultar o cliente", erro);
 });
-*/
+
