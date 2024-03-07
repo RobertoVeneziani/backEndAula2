@@ -26,7 +26,7 @@ export default class ClienteDAO {
     async atualizar(cliente) {
         if  (cliente instanceof Cliente) {
             const conexao = await conectar();
-            const sql = `UPDATE cliente SET cpf = ?, nome = ? endereco = ?, bairro = ?, cidade = ?,   estado = ? tefefone = ? email = ?, WHERE id= ?`;
+            const sql = `UPDATE cliente SET cpf = ?, nome = ?, endereco = ?, bairro = ?, cidade = ?,   estado = ?, tefefone = ?, email = ?, WHERE id= ?`;
             const parametros = [
                 cliente.cpf,
                 cliente.nome,

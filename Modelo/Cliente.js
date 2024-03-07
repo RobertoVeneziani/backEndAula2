@@ -66,7 +66,7 @@ export default class Cliente {
         return this.#cidade;
     }
 
-    set vidade(novaCidade){
+    set cidade(novaCidade){
         this.#cidade = novaCidade;
     }
 
