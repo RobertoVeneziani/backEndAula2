@@ -1,7 +1,9 @@
-export default class clienteCtrl{
-    gravar(requisicao, resposta){
+import Cliente from "../Modelo/Cliente.js";
+
+export default class ClienteCtrl {
+    gravar(requisicao, resposta) {
         resposta.type('application/json');
-        if(requisicao.method === "POST" && requisicao.is('application/json')){
+        if (requisicao.method === "POST" && requisicao.is('application/json')) {
             const dados = requisicao.body;
             const cpf = dados.cpf;
             const nome = dados.nome;
@@ -12,42 +14,41 @@ export default class clienteCtrl{
             const telefone = dados.telefone;
             const email = dados.email;
 
-        if (cpf && nome && endereco && bairro && cidade && estado && telefone && email){
-            const cliente = new cliente(0, cpf, nome, endereco, bairro, cidade, estado, telefone)};
-            cliente.gravar().then(()=>{
-                resposta.status(201);
-                resposta.json({
-                    "status": true,
-                    "mensagem":"Cliente gravado com sucesso!",
-                    "codigo_cliente": cliente.codigo
+            if (cpf && nome && endereco && bairro && cidade && estado && telefone && email) {
+                const cliente = new Cliente(0, cpf, nome, endereco, bairro, cidade, estado, telefone, email);
+                cliente.gravar().then(() => {
+                    resposta.status(201);
+                    resposta.json({
+                        "status": true,
+                        "mensagem": "Cliente gravado com sucesso!",
+                        "codigo_cliente": cliente.codigo
                     });
-            }).catch((erro) =>{
-                resposta.status(500);
+                }).catch((erro) => {
+                    resposta.status(500);
+                    resposta.json({
+                        "status": false,
+                        "mensagem": "Não foi possível armazenar o cliente!" + erro.message
+                    });
+                });
+            } else {
+                resposta.status(400);
                 resposta.json({
                     "status": false,
-                    "mensagem": "Não foi possível armazenar o cliente!" + erro.message
-                })
-            });
-        }
-        else {
-            resposta.status(400);
+                    "mensagem": "Por favor, informe todos os dados do cliente, conforme documentação da API"
+                });
+            }
+        } else {
+            resposta.status(405);
             resposta.json({
                 "status": false,
-                "mensagem": "Por favor, informe todos os dados do cliente, conforme documentação da API"
+                "mensagem": "Requisição inválida! Esperando o método POST e dados no formato JSON para gravar um cliente!"
             });
         }
-    } 
-    else{
-        resposta.status(405);
-        resposta.json({
-            "status": false,
-            "mensagem": "Requisição inválida! Esperando o método  POST e dados no formato JSON para gravar um cliente!"
-            }) 
-        }
     }
-    atualizar(requsicao, resposta){
+
+    atualizar(requisicao, resposta) {
         resposta.type('application/json');
-        if((requsicao.method === "PATCH" || requisicao.method === "PUT") && requisicao.i('application/json')){
+        if ((requisicao.method === "PATCH" || requisicao.method === "PUT") && requisicao.is('application/json')) {
             const dados = requisicao.body;
             const codigo = requisicao.params.codigo;
             const cpf = dados.cpf;
@@ -58,46 +59,101 @@ export default class clienteCtrl{
             const estado = dados.estado;
             const telefone = dados.telefone;
             const email = dados.email;
-            if (codigo && codigo > 0 && cpf && nome && endereco && bairro && cidade && estado && telefone && email)
-            {
-                const  cliente = new Cliente(codigo, cpf, nome, endereco, bairro, cidade, estado, telefone, email);
+            if (codigo && codigo > 0 && cpf && nome && endereco && bairro && cidade && estado && telefone && email) {
+                const cliente = new Cliente(codigo, cpf, nome, endereco, bairro, cidade, estado, telefone, email);
                 cliente.atualizar()
-                .then(()=>{
-                    resposta.status(200);
-                    resposta.json({
-                        "status": true,
-                        "mensagem":"Cliente Atualizado com Sucesso!",
+                    .then(() => {
+                        resposta.status(200);
+                        resposta.json({
+                            "status": true,
+                            "mensagem": "Cliente Atualizado com Sucesso!",
+                        });
                     })
-                })
-                .catch((erro)=>{
-                    resposta.status(500)        
-                    resposta.json({     
-                        "status":false,
-                        "mensagem": "Não foi possivel atualizar cliente!" + erro.message
-                    })
-                });
-            }
-            else{
+                    .catch((erro) => {
+                        resposta.status(500);
+                        resposta.json({
+                            "status": false,
+                            "mensagem": "Não foi possível atualizar cliente!" + erro.message
+                        });
+                    });
+            } else {
                 resposta.status(400);
                 resposta.json({
                     "status": false,
                     "mensagem": "Por favor, informe todos os dados do cliente, conforme documentação da API"
-                })  
+                });
             }
 
-        }
-        else{
-            resposta.status(405); 
+        } else {
+            resposta.status(405);
             resposta.json({
-                status: false,
-                mensagem: "Requisição inválida! Esperando o método PATCH, PUT e os dados no formato JSON para atualizar um cliente!"
-            })
-        }    
+                "status": false,
+                "mensagem": "Requisição inválida! Esperando o método PATCH, PUT e os dados no formato JSON para atualizar um cliente!"
+            });
+        }
     }
+
     excluir(requisicao, resposta) {
-
+        resposta.type('application/json');
+        if (requisicao.method === "DELETE") {
+            const codigo = requisicao.params.codigo;
+            if (codigo && codigo > 0) {
+                const cliente = new Cliente(codigo);
+                cliente.excluir()
+                    .then(() => {
+                        resposta.status(200);
+                        resposta.json({
+                            "status": true,
+                            "mensagem": "Cliente excluido com sucesso!",
+                        });
+                    })
+                    .catch((erro) => {
+                        resposta.status(500);
+                        resposta.json({
+                            "status": false,
+                            "mensagem": "Não foi possível excluir o cliente!" + erro.message
+                        });
+                    });
+            } else {
+                resposta.status(400);
+                resposta.json({
+                    "status": false,
+                    "mensagem": "Por favor, informe o codigo do cliente que deseja excluir, conforme documentação da API"
+                });
+            }
+        } else {
+            resposta.status(405);
+            resposta.json({
+                "status": false,
+                "mensagem": "Requisição inválida! Esperando o método DELETE para excluir um cliente!"
+            });
+        }
     }
-    consultar(requisicao, resposta){
-    }
 
+    consultar(requisicao, resposta) {
+        resposta.type('application/json');
+        if (requisicao.method === "GET") {
+            const termoDePesquisa = requisicao.params.termo;
+            const cliente = new Cliente(0);
+            cliente.consultar(termoDePesquisa)
+                .then((clientes) => {
+                    resposta.status(200);
+                    resposta.json(clientes);
+                })
+                .catch((erro) => {
+                    resposta.status(500);
+                    resposta.json({
+                        "status": false,
+                        "mensagem": "Não foi possível consultar o cliente!" + erro.message
+                    });
+                });
+        } else {
+            resposta.status(405);
+            resposta.json({
+                "status": false,
+                "mensagem": "Requisição Inválida! Esperando o método GET para consultar os clientes."
+            });
+        }
+    }
 }
+
