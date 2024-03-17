@@ -6,10 +6,10 @@ const rotaCliente = new Router ();
 const ClienteCtrl = new ClienteCtrl();
 
 rotaCliente
-.get()
-.post()
-.put()
-.patch()
-.delete();
+.get('/:termo', cliCtrl.consultar)
+.post('/', cliCtrl.gravar)
+.put('/:codigo', cliCtrl.atualizar)
+.patch('/:codigo', cliCtrl.atualizar)
+.delete('/:codigo', cliCtrl.excluir);
 
 export  default rotaCliente;
