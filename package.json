@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/RobertoVeneziani/backEndAula2#readme",
   "dependencies": {
+    "express": "^4.18.3",
     "mysql2": "^3.9.2"
   }
 }
