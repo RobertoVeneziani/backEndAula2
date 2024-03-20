@@ -2,6 +2,11 @@ import ClienteDAO from "../Persistencia/ClienteDAO.js";
 
 export default class Cliente {
   #codigo;
+  #evento;
+  #data;
+  #local;
+  #quantidadeIngresso;
+  #preco;
   #cpf;
   #nome;
   #endereco;
@@ -11,8 +16,13 @@ export default class Cliente {
   #telefone;
   #email;
 
-  constructor(codigo=0, cpf="", nome="", endereco="", bairro="", cidade="", estado="", telefone="", email=""){
+  constructor(codigo=0, evento="", data="", local="", quantidadeIngresso="", preco="", cpf="", nome="", endereco="", bairro="", cidade="", estado="", telefone="", email=""){
     this.#codigo = codigo;
+    this.evento = evento;
+    this.data = data;
+    this.local = local;
+    this.quantidadeIngresso = quantidadeIngresso;
+    this.preco= preco;
     this.cpf = cpf;
     this.nome = nome;
     this.endereco = endereco;
@@ -30,14 +40,45 @@ export default class Cliente {
         this.#codigo = novoCodigo;
     }
 
-    get cpf(){
-        return this.#cpf;
+    get evento(){
+        return this.#evento;
     }
 
-    set cpf(novoCpf){
-        this.#cpf = novoCpf;
+    set evento(novoEvento){
+        this.#evento = novoEvento;
     }
 
+    
+    get data(){
+        return this.#data;
+    }
+
+    set data(novoData){
+        this.#data = novoData;
+    }
+    get local(){
+        return this.#local;
+    }
+
+    set local(novoLocal){
+        this.#local = novoLocal;
+    }
+
+    get quantidadeIngresso(){
+        return this.#quantidadeIngresso;
+    }
+
+    set quantidadeIngresso(novoQuantidadeIngresso){
+        this.#quantidadeIngresso = novoQuantidadeIngresso;
+    }
+
+    get preco(){
+        return this.#preco;
+    }
+
+    set preco(novoPreco){
+        this.#preco = novoPreco;
+    }
     get nome(){
         return this.#nome;
     }
@@ -121,6 +162,11 @@ export default class Cliente {
     toJSON(){
         return{
             "codigo": this.#codigo,
+            "evento": this.#evento,
+            "data": this.#data,
+            "local": this.#local,
+            "quantidadeIngresso": this.#quantidadeIngresso,
+            "preco":this.#preco,
             "cpf": this.#cpf,
             "nome": this.#nome,
             "endereco": this.#endereco,        

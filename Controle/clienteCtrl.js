@@ -5,6 +5,11 @@ export default class ClienteCtrl {
         resposta.type('application/json');
         if (requisicao.method === "POST" && requisicao.is('application/json')) {
             const dados = requisicao.body;
+            const evento = dados.evento;
+            const data = dados.data;
+            const local = dados.local;
+            const quantidadeIngresso = dados.quantidadeIngresso;
+            const preco = dados.preco;
             const cpf = dados.cpf;
             const nome = dados.nome;
             const endereco = dados.endereco;
@@ -14,8 +19,8 @@ export default class ClienteCtrl {
             const telefone = dados.telefone;
             const email = dados.email;
 
-            if (cpf && nome && endereco && bairro && cidade && estado && telefone && email) {
-                const cliente = new Cliente(0, cpf, nome, endereco, bairro, cidade, estado, telefone, email);
+            if (evento && data && local && quantidadeIngresso && preco && cpf && nome && endereco && bairro && cidade && estado && telefone && email) {
+                const cliente = new Cliente(0, evento, data, local, quantidadeIngresso, preco, cpf, nome, endereco, bairro, cidade, estado, telefone, email);
                 cliente.gravar().then(() => {
                     resposta.status(201);
                     resposta.json({
@@ -51,6 +56,11 @@ export default class ClienteCtrl {
         if ((requisicao.method === "PATCH" || requisicao.method === "PUT") && requisicao.is('application/json')) {
             const dados = requisicao.body;
             const codigo = requisicao.params.codigo;
+            const evento = dados.evento;
+            const data = dados.data;
+            const local = dados.local;
+            const quantidadeIngresso = dados.quantidadeIngresso;
+            const preco = dados.preco;
             const cpf = dados.cpf;
             const nome = dados.nome;
             const endereco = dados.endereco;
@@ -59,8 +69,8 @@ export default class ClienteCtrl {
             const estado = dados.estado;
             const telefone = dados.telefone;
             const email = dados.email;
-            if (codigo && codigo > 0 && cpf && nome && endereco && bairro && cidade && estado && telefone && email) {
-                const cliente = new Cliente(codigo, cpf, nome, endereco, bairro, cidade, estado, telefone, email);
+            if (codigo && codigo > 0 && evento && data && local && quantidadeIngresso && preco &&cpf && nome && endereco && bairro && cidade && estado && telefone && email) {
+                const cliente = new Cliente(codigo, evento, data, local, quantidadeIngresso, preco, cpf, nome, endereco, bairro, cidade, estado, telefone, email);
                 cliente.atualizar()
                     .then(() => {
                         resposta.status(200);

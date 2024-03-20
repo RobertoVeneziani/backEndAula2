@@ -5,9 +5,14 @@ export default class ClienteDAO {
     async gravar(cliente) {
         if (cliente instanceof Cliente) {
             const conexao = await conectar();
-            const sql = `INSERT INTO cliente (cpf, nome, endereco, bairro, cidade, estado, telefone, email)
-            values (?, ?, ?, ?, ?, ?, ?, ?)`;
+            const sql = `INSERT INTO cliente (evento, data, local, quantidadeIngresso, preco, cpf, nome, endereco, bairro, cidade, estado, telefone, email)
+            values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
             const parametros = [
+                cliente.evento, 
+                cliente.data, 
+                cliente.local,
+                cliente.quantidadeIngresso,
+                cliente.preco,            
                 cliente.cpf, 
                 cliente.nome, 
                 cliente.endereco,
@@ -26,8 +31,13 @@ export default class ClienteDAO {
     async atualizar(cliente) {
         if  (cliente instanceof Cliente) {
             const conexao = await conectar();
-            const sql = `UPDATE cliente SET cpf = ?, nome = ?, endereco = ?, bairro = ?, cidade = ?,   estado = ?, telefone = ?, email = ? WHERE id = ?`;
+            const sql = `UPDATE cliente SET evento = ?, data = ?, local = ?, quantidadeIngresso = ?, preco = ?, cpf = ?, nome = ?, endereco = ?, bairro = ?, cidade = ?,   estado = ?, telefone = ?, email = ? WHERE id = ?`;
             const parametros = [
+                cliente.evento, 
+                cliente.data, 
+                cliente.local,
+                cliente.quantidadeIngresso,
+                cliente.preco, 
                 cliente.cpf,
                 cliente.nome,
                 cliente.endereco,
@@ -74,6 +84,11 @@ export default class ClienteDAO {
         for (const registro of registros){
             const cliente = new Cliente(
                 registro.id,
+                registro.evento,
+                registro.data,
+                registro.local,
+                registro.quantidadeIngresso,
+                registro.preco,
                 registro.cpf,
                 registro.nome,
                 registro.endereco,
