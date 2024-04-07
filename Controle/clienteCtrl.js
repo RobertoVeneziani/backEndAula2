@@ -143,9 +143,9 @@ export default class ClienteCtrl {
     consultar(requisicao, resposta) {
         resposta.type('application/json');
         if (requisicao.method === "GET") {
-            const termoDePesquisa = requisicao.params.termo;
+            //const termoDePesquisa = requisicao.params.termo;
             const cliente = new Cliente(0);
-            cliente.consultar(termoDePesquisa)
+            cliente.consultar()
                 .then((clientes) => {
                     resposta.status(200);
                     resposta.json(clientes);

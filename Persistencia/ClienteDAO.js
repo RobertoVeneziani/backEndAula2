@@ -64,7 +64,7 @@ export default class ClienteDAO {
         }
     }
 
-    async consultar(termoDePesquisa){
+    async consultar1(termoDePesquisa){
         if (termoDePesquisa === undefined){
             termoDePesquisa = "";
         }
@@ -79,6 +79,33 @@ export default class ClienteDAO {
 
         const conexao = await conectar(); 
         const [registros] = await conexao.execute(sql,[termoDePesquisa]);
+
+        let listaClientes = [];
+        for (const registro of registros){
+            const cliente = new Cliente(
+                registro.id,
+                registro.evento,
+                registro.data,
+                registro.local,
+                registro.quantidadeIngresso,
+                registro.preco,
+                registro.cpf,
+                registro.nome,
+                registro.endereco,
+                registro.bairro,
+                registro.cidade,
+                registro.estado,
+                registro.telefone,
+                registro.email
+            );
+            listaClientes.push(cliente);
+        }
+        return listaClientes;
+    }
+    async consultar(){
+         var sql = `SELECT * FROM cliente`; 
+        const conexao = await conectar(); 
+        const [registros] = await conexao.execute(sql);
 
         let listaClientes = [];
         for (const registro of registros){
